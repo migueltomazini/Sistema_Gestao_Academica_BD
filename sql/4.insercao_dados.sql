@@ -9,7 +9,7 @@ INSERT INTO Unidade_Escola (ID_Unidade, Cidade, Estado, Pais, Predio_Bloco) VALU
 (2, 'São Paulo', 'SP', 'Brasil', 'EACH - Prédio Principal');
 
 -- Inserindo Usuários (20 Alunos com nomes comuns)
-INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascimento, Endereco_Rua, Endereco_Nro, Endereco_Bairro, Sexo, Email, Senha, Unidade_Escola_ID) VALUES
+INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascimento, Endereco_Rua, Endereco_Nro, Endereco_Bairro, Sexo, Email, Senha, ID_Unidade) VALUES
 ('João', 'Silva', '16991000001', 'Aluno', '2004-05-15', 'Rua Bento Carlos', '101', 'Centro', 'Masculino', 'joao.silva@email.com', 'senha123', 1),
 ('Maria', 'Oliveira', '16991000002', 'Aluno', '2003-08-20', 'Avenida São Carlos', '202', 'Centro', 'Feminino', 'maria.oliveira@email.com', 'senha123', 1),
 ('Pedro', 'Santos', '16991000003', 'Aluno', '2004-02-10', 'Rua Episcopal', '303', 'Jardim Lutfalla', 'Masculino', 'pedro.santos@email.com', 'senha123', 1),
@@ -32,7 +32,7 @@ INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascime
 ('Livia', 'Mendes', '11981000020', 'Aluno', '2004-01-23', 'Avenida Celso Garcia', '2020', 'Brás', 'Feminino', 'livia.mendes@email.com', 'senha123', 2);
 
 -- Inserindo Usuários (20 Professores com nomes comuns)
-INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascimento, Endereco_Rua, Endereco_Nro, Endereco_Bairro, Sexo, Email, Senha, Unidade_Escola_ID) VALUES
+INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascimento, Endereco_Rua, Endereco_Nro, Endereco_Bairro, Sexo, Email, Senha, ID_Unidade) VALUES
 ('Carlos', 'Rodrigues', '16992000001', 'Professor', '1980-01-01', 'Avenida Trabalhador São-carlense', '10', 'Parque Arnold Schimidt', 'Masculino', 'carlos.rodrigues@email.com', 'prof_senha', 1),
 ('José', 'Teixeira', '16992000002', 'Professor', '1975-03-12', 'Rua Miguel Petroni', '20', 'Jardim Acapulco', 'Masculino', 'jose.teixeira@email.com', 'prof_senha', 1),
 ('Adriana', 'Correia', '16992000003', 'Professor', '1982-06-25', 'Rua Larga', '30', 'Vila Industrial', 'Feminino', 'adriana.correia@email.com', 'prof_senha', 1),
@@ -55,7 +55,7 @@ INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascime
 ('Alexandre', 'Freitas', '11982000020', 'Professor', '1974-06-30', 'Avenida Ipiranga', '200', 'República', 'Masculino', 'alexandre.freitas@email.com', 'prof_senha', 2);
 
 -- Inserindo Usuários (5 Funcionários Administrativos)
-INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascimento, Endereco_Rua, Endereco_Nro, Endereco_Bairro, Sexo, Email, Senha, Unidade_Escola_ID) VALUES
+INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascimento, Endereco_Rua, Endereco_Nro, Endereco_Bairro, Sexo, Email, Senha, ID_Unidade) VALUES
 ('Roberto', 'Moraes', '1633731111', 'Funcionario', '1990-02-15', 'Rua da Administração', '1', 'Centro', 'Masculino', 'roberto.moraes@email.com', 'func_senha1', 1),
 ('Sandra', 'Ramalho', '1633732222', 'Funcionario', '1992-07-21', 'Avenida da Secretaria', '2', 'Vila Administrativa', 'Feminino', 'sandra.ramalho@email.com', 'func_senha2', 1),
 ('Leonardo', 'Neves', '1633733333', 'Funcionario', '1995-09-03', 'Rua do Protocolo', '3', 'Centro', 'Masculino', 'leonardo.neves@email.com', 'func_senha3', 1),
@@ -124,12 +124,12 @@ INSERT INTO DiscipCompoeCurso (ID_Curso, Sigla, Semestre) VALUES
 ('MKT', 'EACH0132', 3);
 
 -- Inserindo Ofertas de Disciplinas (Turmas) para o período letivo de 2025/1
-INSERT INTO Oferecimento (Sigla_Disciplina, Periodo, Ano, NomeProfessor, SobrenomeProfessor, TelefoneProfessor, CapacidadeMaxTurma) VALUES
-('SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 60),
-('SCC0241', 1, 2025, 'José', 'Teixeira', '16992000002', 55),
-('SME0340', 1, 2025, 'Ricardo', 'Tavares', '16992000008', 90),
-('EACH0111', 1, 2025, 'Eduardo', 'Pinto', '11982000013', 70),
-('EACH0132', 1, 2025, 'Fernando', 'Fernandes', '11982000015', 75);
+INSERT INTO Oferecimento (Sigla_Disciplina, Periodo, Ano, NomeProfessor, SobrenomeProfessor, TelefoneProfessor, CapacidadeMaxTurma, Sala_Codigo) VALUES
+('SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 60, 'B5-101'), 
+('SCC0241', 1, 2025, 'José', 'Teixeira', '16992000002', 55, 'B5-102'), 
+('SME0340', 1, 2025, 'Ricardo', 'Tavares', '16992000008', 90, 'PRD-201'), 
+('EACH0111', 1, 2025, 'Eduardo', 'Pinto', '11982000013', 70, 'PRD-202'), 
+('EACH0132', 1, 2025, 'Fernando', 'Fernandes', '11982000015', 75, 'B5-101'); 
 
 -- Inserindo Matrículas de Alunos em Disciplinas
 INSERT INTO RealizarMatricula (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf, DataMatricula, Status) VALUES
@@ -155,3 +155,62 @@ INSERT INTO Matricula_Nota (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disc
 ('Beatriz', 'Ferreira', '16991000006', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 'Nota Final', 4.0),
 ('Maria', 'Oliveira', '16991000002', 'SME0340', 1, 2025, 'Ricardo', 'Tavares', '16992000008', 'Nota Final', 9.0),
 ('Bruno', 'Nunes', '11981000019', 'EACH0111', 1, 2025, 'Eduardo', 'Pinto', '11982000013', 'Nota Final', 9.5);
+
+-- Inserindo Salas
+INSERT INTO Sala (Codigo, CapacidadeMaxSala) VALUES
+('B5-101', 60),
+('B5-102', 50),
+('PRD-201', 70),
+('PRD-202', 80);
+
+-- Atualizando Cursos com SalaPadrao
+UPDATE Curso SET SalaPadrao = 'B5-101' WHERE ID_Curso = 'BCC';
+UPDATE Curso SET SalaPadrao = 'PRD-201' WHERE ID_Curso = 'SI';
+UPDATE Curso SET SalaPadrao = 'PRD-202' WHERE ID_Curso = 'MKT';
+UPDATE Curso SET SalaPadrao = 'B5-102' WHERE ID_Curso = 'Estat';
+
+-- Inserindo Curso_PreRequisito
+INSERT INTO Curso_PreRequisito (ID_Curso, PreRequisito_Sigla_Disciplina) VALUES
+('BCC', 'SME0340'),  -- Cálculo I como pré-requisito para Ciência da Computação
+('SI', 'SCC0240'),   -- Bases de Dados para Sistemas de Informação
+('MKT', 'EACH0132'); -- Marketing Digital para Marketing
+
+-- Inserindo Curso_Infraestrutura
+INSERT INTO Curso_Infraestrutura (ID_Curso, Necessidade_Infraestrutura) VALUES
+('BCC', 'Laboratório de Informática'),
+('BCC', 'Acesso à internet banda larga'),
+('SI', 'Laboratório de Redes'),
+('MKT', 'Sala multimídia para apresentações'),
+('Estat', 'Laboratório de Estatística');
+
+-- Inserindo RegrasGeral
+INSERT INTO RegrasGeral (ID_Curso, Tipo, Descricao) VALUES
+('BCC', 'Frequência', 'Frequência mínima de 75% nas aulas presenciais.'),
+('BCC', 'Avaliação', 'Média mínima 6.0 para aprovação nas disciplinas.'),
+('SI', 'Frequência', 'Frequência mínima de 75% nas aulas.'),
+('SI', 'Avaliação', 'Nota mínima 6.0 para aprovação.'),
+('MKT', 'Frequência', 'Frequência mínima de 80%.'),
+('MKT', 'Avaliação', 'Média mínima 7.0 para aprovação.'),
+('Estat', 'Frequência', 'Frequência mínima de 75%.'),
+('Estat', 'Avaliação', 'Nota mínima 6.5 para aprovação.');
+
+-- Inserindo Mensagens
+INSERT INTO Mensagem (Emissor, Destinatario, Conteudo, NomeAutor, SobrenomeAutor, TelefoneAutor) VALUES
+('joao.silva@email.com', 'carlos.rodrigues@email.com', 'Professor, gostaria de esclarecer uma dúvida sobre a matéria.', 'João', 'Silva', '16991000001'),
+('maria.oliveira@email.com', 'jose.teixeira@email.com', 'Solicito revisão da nota da última avaliação.', 'Maria', 'Oliveira', '16991000002'),
+('eduardo.pinto@email.com', 'fernanda.fogaca@email.com', 'Reunião marcada para amanhã às 10h.', 'Eduardo', 'Pinto', '11982000013'),
+('fernando.fernandes@email.com', 'patricia.wolff@email.com', 'Precisamos discutir o projeto de marketing digital.', 'Fernando', 'Fernandes', '11982000015');
+
+-- Inserindo RecebeMsg (destinatários das mensagens)
+INSERT INTO RecebeMsg (ID_Mensagem, NomeDestinatario, SobrenomeDestinatario, TelefoneDestinatario) VALUES
+(1, 'Carlos', 'Rodrigues', '16992000001'),
+(2, 'José', 'Teixeira', '16992000002'),
+(3, 'Fernanda', 'Fogaça', '16992000005'),
+(4, 'Patrícia', 'Wolff', '11982000014');
+
+-- Inserindo CriterioAprovacao
+INSERT INTO CriterioAprovacao (ID_Curso, FrequenciaMinima, NotaMinima) VALUES
+('BCC', 75.00, 6.00),
+('SI', 75.00, 6.00),
+('MKT', 80.00, 7.00),
+('Estat', 75.00, 6.50);

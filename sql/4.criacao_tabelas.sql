@@ -23,6 +23,8 @@ DROP TABLE IF EXISTS RecebeMsg CASCADE;
 DROP TABLE IF EXISTS Mensagem CASCADE;
 DROP TABLE IF EXISTS Usuario CASCADE;
 DROP TABLE IF EXISTS Unidade_Escola CASCADE;
+DROP TABLE IF EXISTS Sala CASCADE;
+DROP TABLE IF EXISTS CriterioAprovacao CASCADE;
 
 -- Tabelas que não possuem chaves estrangeiras (ou que referenciam tabelas já criadas)
 CREATE TABLE Unidade_Escola (
@@ -97,16 +99,23 @@ CREATE TABLE Disciplina (
     FOREIGN KEY (ID_Unidade) REFERENCES Unidade_Escola(ID_Unidade) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- Tabela de Salas
+CREATE TABLE Sala (
+    Codigo VARCHAR(20) PRIMARY KEY,
+    CapacidadeMaxSala INTEGER NOT NULL CHECK (CapacidadeMaxSala > 0)
+);
+
 CREATE TABLE Curso (
     ID_Curso VARCHAR(10) PRIMARY KEY,
     NomeCurso VARCHAR(255) UNIQUE NOT NULL,
     CargaHoraria INTEGER NOT NULL,
     NumeroVagas INTEGER NOT NULL,
     Ementa TEXT,
-    SalaPadrao VARCHAR(50),
+    SalaPadrao VARCHAR(20),
     Nivel_de_Ensino VARCHAR(50) NOT NULL,
     Departamento_Codigo VARCHAR(10) NOT NULL,
     ID_Unidade INTEGER NOT NULL,
+    FOREIGN KEY (SalaPadrao) REFERENCES Sala(Codigo) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (Departamento_Codigo) REFERENCES Departamento(Codigo) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (ID_Unidade) REFERENCES Unidade_Escola(ID_Unidade) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -139,9 +148,11 @@ CREATE TABLE Oferecimento (
     SobrenomeProfessor VARCHAR(100) NOT NULL,
     TelefoneProfessor VARCHAR(15) NOT NULL,
     CapacidadeMaxTurma INTEGER,
+    Sala_Codigo VARCHAR(20) NOT NULL,
     PRIMARY KEY (Sigla_Disciplina, Periodo, Ano, NomeProfessor, SobrenomeProfessor, TelefoneProfessor),
     FOREIGN KEY (Sigla_Disciplina) REFERENCES Disciplina(Sigla) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (NomeProfessor, SobrenomeProfessor, TelefoneProfessor) REFERENCES Professor(NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (NomeProfessor, SobrenomeProfessor, TelefoneProfessor) REFERENCES Professor(NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (Sala_Codigo) REFERENCES Sala(Codigo) ON DELETE SET NULL ON UPDATE CASCADE 
 );
 
 CREATE TABLE RealizarMatricula (
@@ -156,6 +167,8 @@ CREATE TABLE RealizarMatricula (
     TelefoneProf VARCHAR(15) NOT NULL,
     DataMatricula DATE NOT NULL,
     Status VARCHAR(50) NOT NULL,
+    BolsasDeEstudo VARCHAR(100),
+    Descontos VARCHAR(100),
     PRIMARY KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf),
     FOREIGN KEY (NomeAluno, SobrenomeAluno, TelefoneAluno) REFERENCES Aluno(NomeAluno, SobrenomeAluno, TelefoneAluno) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf) REFERENCES Oferecimento(Sigla_Disciplina, Periodo, Ano, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE CASCADE ON UPDATE CASCADE
@@ -220,5 +233,39 @@ CREATE TABLE RegrasGeral (
     Tipo VARCHAR(100) NOT NULL,
     Descricao TEXT NOT NULL,
     PRIMARY KEY (ID_Curso, Tipo),
+    FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Tabela de Mensagens
+CREATE TABLE Mensagem (
+    ID_Mensagem SERIAL PRIMARY KEY,
+    Timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    Emissor VARCHAR(255),
+    Destinatario VARCHAR(255),
+    Conteudo TEXT NOT NULL,
+    NomeAutor VARCHAR(100) NOT NULL,
+    SobrenomeAutor VARCHAR(100) NOT NULL,
+    TelefoneAutor VARCHAR(15) NOT NULL,
+    FOREIGN KEY (NomeAutor, SobrenomeAutor, TelefoneAutor)
+        REFERENCES Usuario(NomeUsuario, SobrenomeUsuario, Telefone) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Tabela RecebeMsg (Usuários que recebem mensagens)
+CREATE TABLE RecebeMsg (
+    ID_Mensagem INTEGER NOT NULL,
+    NomeDestinatario VARCHAR(100) NOT NULL,
+    SobrenomeDestinatario VARCHAR(100) NOT NULL,
+    TelefoneDestinatario VARCHAR(15) NOT NULL,
+    PRIMARY KEY (ID_Mensagem, NomeDestinatario, SobrenomeDestinatario, TelefoneDestinatario),
+    FOREIGN KEY (ID_Mensagem) REFERENCES Mensagem(ID_Mensagem) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (NomeDestinatario, SobrenomeDestinatario, TelefoneDestinatario)
+        REFERENCES Usuario(NomeUsuario, SobrenomeUsuario, Telefone) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Tabela de Critérios de Aprovação por Curso
+CREATE TABLE CriterioAprovacao (
+    ID_Curso VARCHAR(10) PRIMARY KEY,
+    FrequenciaMinima NUMERIC(5,2) CHECK (FrequenciaMinima BETWEEN 0 AND 100),
+    NotaMinima NUMERIC(4,2) CHECK (NotaMinima BETWEEN 0 AND 10),
     FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso) ON DELETE CASCADE ON UPDATE CASCADE
 );
