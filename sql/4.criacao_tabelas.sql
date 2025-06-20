@@ -1,4 +1,4 @@
--- Arquivo: 1_criacao_tabelas.sql
+-- Arquivo: 4.criacao_tabelas.sql
 -- Descrição: Script para criar toda a estrutura do banco de dados (tabelas e restrições).
 
 -- Sem normalização ainda

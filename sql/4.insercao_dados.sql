@@ -1,4 +1,4 @@
--- Arquivo: 2_insercao_dados.sql
+-- Arquivo: 4.insercao_dados.sql
 -- Descrição: Script para popular as tabelas do banco de dados com dados realistas.
 
 -- Sem normalização ainda
@@ -66,6 +66,7 @@ INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascime
 INSERT INTO Aluno (NomeAluno, SobrenomeAluno, TelefoneAluno)
 SELECT NomeUsuario, SobrenomeUsuario, Telefone FROM Usuario WHERE Papel = 'Aluno';
 
+-- Uso de forma artificial para popular dados de titulação como doutorado ou mestrado
 INSERT INTO Professor (NomeProfessor, SobrenomeProfessor, TelefoneProfessor, Titulacao)
 SELECT NomeUsuario, SobrenomeUsuario, Telefone,
     CASE
