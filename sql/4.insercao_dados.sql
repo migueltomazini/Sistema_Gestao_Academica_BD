@@ -4,32 +4,42 @@
 -- Sem normalização ainda
 
 -- Inserindo 2 Unidades da Escola
-INSERT INTO Unidade_Escola (ID_Unidade, Cidade, Estado, Pais, Predio_Bloco) VALUES
-(1, 'São Carlos', 'SP', 'Brasil', 'ICMC - Bloco 5'),
-(2, 'São Paulo', 'SP', 'Brasil', 'EACH - Prédio Principal');
+INSERT INTO Unidade_Escola (ID_Unidade, Cidade, Estado, Pais) VALUES
+(1, 'São Carlos', 'SP', 'Brasil'),
+(2, 'São Paulo', 'SP', 'Brasil');
+
+INSERT INTO Bloco (ID_Unidade, NomeBloco) VALUES
+(1, 'ICMC'),
+(1, 'EESC'),
+(1, 'IFSC'),
+(1, 'IQSC'),
+(1, 'IAU'),
+(2, 'IME'),
+(2, 'FAU'),
+(2, 'EACH');
 
 -- Inserindo Usuários (20 Alunos com nomes comuns)
-INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascimento, Endereco_Rua, Endereco_Nro, Endereco_Bairro, Sexo, Email, Senha, ID_Unidade) VALUES
-('João', 'Silva', '16991000001', 'Aluno', '2004-05-15', 'Rua Bento Carlos', '101', 'Centro', 'Masculino', 'joao.silva@email.com', 'senha123', 1),
-('Maria', 'Oliveira', '16991000002', 'Aluno', '2003-08-20', 'Avenida São Carlos', '202', 'Centro', 'Feminino', 'maria.oliveira@email.com', 'senha123', 1),
-('Pedro', 'Santos', '16991000003', 'Aluno', '2004-02-10', 'Rua Episcopal', '303', 'Jardim Lutfalla', 'Masculino', 'pedro.santos@email.com', 'senha123', 1),
-('Ana', 'Souza', '16991000004', 'Aluno', '2003-11-25', 'Rua Conde do Pinhal', '404', 'Vila Monteiro', 'Feminino', 'ana.souza@email.com', 'senha123', 1),
-('Lucas', 'Pereira', '16991000005', 'Aluno', '2004-07-30', 'Rua Geminiano Costa', '505', 'Jardim Paraíso', 'Masculino', 'lucas.pereira@email.com', 'senha123', 1),
-('Beatriz', 'Ferreira', '16991000006', 'Aluno', '2003-01-12', 'Rua Major José Inácio', '606', 'Centro', 'Feminino', 'beatriz.ferreira@email.com', 'senha123', 1),
-('Gabriel', 'Alves', '16991000007', 'Aluno', '2004-09-05', 'Avenida Doutor Carlos Botelho', '707', 'Parque Arnold Schimidt', 'Masculino', 'gabriel.alves@email.com', 'senha123', 1),
-('Laura', 'Costa', '16991000008', 'Aluno', '2003-03-18', 'Rua Sete de Setembro', '808', 'Vila Nery', 'Feminino', 'laura.costa@email.com', 'senha123', 1),
-('Matheus', 'Gomes', '16991000009', 'Aluno', '2002-10-10', 'Rua Dona Alexandrina', '909', 'Centro', 'Masculino', 'matheus.gomes@email.com', 'senha123', 1),
-('Julia', 'Ribeiro', '16991000010', 'Aluno', '2004-12-01', 'Rua Jesuíno de Arruda', '1010', 'Jardim Bethânia', 'Feminino', 'julia.ribeiro@email.com', 'senha123', 1),
-('Guilherme', 'Martins', '11981000011', 'Aluno', '2003-06-22', 'Rua da Consolação', '1111', 'Consolação', 'Masculino', 'guilherme.martins@email.com', 'senha123', 2),
-('Isabela', 'Carvalho', '11981000012', 'Aluno', '2001-04-14', 'Avenida Paulista', '1212', 'Bela Vista', 'Feminino', 'isabela.carvalho@email.com', 'senha123', 2),
-('Rafael', 'Almeida', '11981000013', 'Aluno', '2004-08-11', 'Rua Augusta', '1313', 'Cerqueira César', 'Masculino', 'rafael.almeida@email.com', 'senha123', 2),
-('Sofia', 'Lopes', '11981000014', 'Aluno', '2003-02-09', 'Rua Oscar Freire', '1414', 'Jardins', 'Feminino', 'sofia.lopes@email.com', 'senha123', 2),
-('Felipe', 'Dias', '11981000015', 'Aluno', '2004-10-03', 'Avenida Brigadeiro Faria Lima', '1515', 'Itaim Bibi', 'Masculino', 'felipe.dias@email.com', 'senha123', 2),
-('Luiza', 'Cruz', '11981000016', 'Aluno', '2003-05-19', 'Rua Teodoro Sampaio', '1616', 'Pinheiros', 'Feminino', 'luiza.cruz@email.com', 'senha123', 2),
-('Enzo', 'Barbosa', '11981000017', 'Aluno', '2004-11-28', 'Rua Voluntários da Pátria', '1717', 'Santana', 'Masculino', 'enzo.barbosa@email.com', 'senha123', 2),
-('Mariana', 'Rocha', '11981000018', 'Aluno', '2003-07-15', 'Avenida Ibirapuera', '1818', 'Moema', 'Feminino', 'mariana.rocha@email.com', 'senha123', 2),
-('Bruno', 'Nunes', '11981000019', 'Aluno', '2000-09-08', 'Rua 25 de Março', '1919', 'Centro', 'Masculino', 'bruno.nunes@email.com', 'senha123', 2),
-('Livia', 'Mendes', '11981000020', 'Aluno', '2004-01-23', 'Avenida Celso Garcia', '2020', 'Brás', 'Feminino', 'livia.mendes@email.com', 'senha123', 2);
+INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascimento, Endereco_Rua, Endereco_Nro, Endereco_Bairro, Sexo, Email, Senha, ID_Unidade, NomeBloco) VALUES
+('João', 'Silva', '16991000001', 'Aluno', '2004-05-15', 'Rua Bento Carlos', '101', 'Centro', 'Masculino', 'joao.silva@email.com', 'senha123', 1, 'ICMC'),
+('Maria', 'Oliveira', '16991000002', 'Aluno', '2003-08-20', 'Avenida São Carlos', '202', 'Centro', 'Feminino', 'maria.oliveira@email.com', 'senha123', 1, 'IAU'),
+('Pedro', 'Santos', '16991000003', 'Aluno', '2004-02-10', 'Rua Episcopal', '303', 'Jardim Lutfalla', 'Masculino', 'pedro.santos@email.com', 'senha123', 1, 'EESC'),
+('Ana', 'Souza', '16991000004', 'Aluno', '2003-11-25', 'Rua Conde do Pinhal', '404', 'Vila Monteiro', 'Feminino', 'ana.souza@email.com', 'senha123', 1, 'ICMC'),
+('Lucas', 'Pereira', '16991000005', 'Aluno', '2004-07-30', 'Rua Geminiano Costa', '505', 'Jardim Paraíso', 'Masculino', 'lucas.pereira@email.com', 'senha123', 1, 'EESC'),
+('Beatriz', 'Ferreira', '16991000006', 'Aluno', '2003-01-12', 'Rua Major José Inácio', '606', 'Centro', 'Feminino', 'beatriz.ferreira@email.com', 'senha123', 1, 'IFSC'),
+('Gabriel', 'Alves', '16991000007', 'Aluno', '2004-09-05', 'Avenida Doutor Carlos Botelho', '707', 'Parque Arnold Schimidt', 'Masculino', 'gabriel.alves@email.com', 'senha123', 1, NULL),
+('Laura', 'Costa', '16991000008', 'Aluno', '2003-03-18', 'Rua Sete de Setembro', '808', 'Vila Nery', 'Feminino', 'laura.costa@email.com', 'senha123', 1, NULL),
+('Matheus', 'Gomes', '16991000009', 'Aluno', '2002-10-10', 'Rua Dona Alexandrina', '909', 'Centro', 'Masculino', 'matheus.gomes@email.com', 'senha123', 1, NULL),
+('Julia', 'Ribeiro', '16991000010', 'Aluno', '2004-12-01', 'Rua Jesuíno de Arruda', '1010', 'Jardim Bethânia', 'Feminino', 'julia.ribeiro@email.com', 'senha123', 1, NULL),
+('Guilherme', 'Martins', '11981000011', 'Aluno', '2003-06-22', 'Rua da Consolação', '1111', 'Consolação', 'Masculino', 'guilherme.martins@email.com', 'senha123', 2, 'IME'),
+('Isabela', 'Carvalho', '11981000012', 'Aluno', '2001-04-14', 'Avenida Paulista', '1212', 'Bela Vista', 'Feminino', 'isabela.carvalho@email.com', 'senha123', 2, 'IME'),
+('Rafael', 'Almeida', '11981000013', 'Aluno', '2004-08-11', 'Rua Augusta', '1313', 'Cerqueira César', 'Masculino', 'rafael.almeida@email.com', 'senha123', 2, 'IME'),
+('Sofia', 'Lopes', '11981000014', 'Aluno', '2003-02-09', 'Rua Oscar Freire', '1414', 'Jardins', 'Feminino', 'sofia.lopes@email.com', 'senha123', 2, 'IME'),
+('Felipe', 'Dias', '11981000015', 'Aluno', '2004-10-03', 'Avenida Brigadeiro Faria Lima', '1515', 'Itaim Bibi', 'Masculino', 'felipe.dias@email.com', 'senha123', 2, NULL),
+('Luiza', 'Cruz', '11981000016', 'Aluno', '2003-05-19', 'Rua Teodoro Sampaio', '1616', 'Pinheiros', 'Feminino', 'luiza.cruz@email.com', 'senha123', 2, NULL),
+('Enzo', 'Barbosa', '11981000017', 'Aluno', '2004-11-28', 'Rua Voluntários da Pátria', '1717', 'Santana', 'Masculino', 'enzo.barbosa@email.com', 'senha123', 2, NULL),
+('Mariana', 'Rocha', '11981000018', 'Aluno', '2003-07-15', 'Avenida Ibirapuera', '1818', 'Moema', 'Feminino', 'mariana.rocha@email.com', 'senha123', 2, NULL),
+('Bruno', 'Nunes', '11981000019', 'Aluno', '2000-09-08', 'Rua 25 de Março', '1919', 'Centro', 'Masculino', 'bruno.nunes@email.com', 'senha123', 2, NULL),
+('Livia', 'Mendes', '11981000020', 'Aluno', '2004-01-23', 'Avenida Celso Garcia', '2020', 'Brás', 'Feminino', 'livia.mendes@email.com', 'senha123', 2, NULL);
 
 -- Inserindo Usuários (20 Professores com nomes comuns)
 INSERT INTO Usuario (NomeUsuario, SobrenomeUsuario, Telefone, Papel, DataNascimento, Endereco_Rua, Endereco_Nro, Endereco_Bairro, Sexo, Email, Senha, ID_Unidade) VALUES
@@ -98,20 +108,20 @@ INSERT INTO Departamento (Codigo, Nome, ProfessorChefe_Nome, ProfessorChefe_Sobr
 ('EACH-MKT', 'Marketing', 'Fernando', 'Fernandes', '11982000015');
 
 -- Inserindo Cursos
-INSERT INTO Curso (ID_Curso, NomeCurso, CargaHoraria, NumeroVagas, Nivel_de_Ensino, Departamento_Codigo, ID_Unidade) VALUES
-('BCC', 'Bacharelado em Ciência da Computação', 3200, 50, 'Graduação', 'SCC', 1),
-('SI', 'Bacharelado em Sistemas de Informação', 3000, 60, 'Graduação', 'EACH-SI', 2),
-('MKT', 'Bacharelado em Marketing', 2800, 70, 'Graduação', 'EACH-MKT', 2),
-('Estat', 'Bacharelado em Estatística', 3100, 40, 'Graduação', 'SME', 1);
+INSERT INTO Curso (ID_Curso, NomeCurso, CargaHoraria, NumeroVagas, Nivel_de_Ensino, Departamento_Codigo, ID_Unidade, NomeBloco) VALUES
+('BCC', 'Bacharelado em Ciência da Computação', 3200, 50, 'Graduação', 'SCC', 1, 'ICMC'),
+('SI', 'Bacharelado em Sistemas de Informação', 3000, 60, 'Graduação', 'EACH-SI', 2, 'EACH'),
+('MKT', 'Bacharelado em Marketing', 2800, 70, 'Graduação', 'EACH-MKT', 2, 'EACH'),
+('Estat', 'Bacharelado em Estatística', 3100, 40, 'Graduação', 'SME', 1,'ICMC');
 
 -- Inserindo Disciplinas
-INSERT INTO Disciplina (Sigla, Nome_Disciplina, Quantidade_AulasSemanais, Material_Didatico, ID_Unidade) VALUES
-('SCC0240', 'Bases de Dados', 4, 'Livro: Sistemas de Banco de Dados, Elmasri & Navathe', 1),
-('SCC0241', 'Engenharia de Software I', 4, 'Livro: Engenharia de Software, Sommerville', 1),
-('SME0340', 'Cálculo I', 6, 'Livro: Cálculo, Stewart', 1),
-('EACH0111', 'Algoritmos e Estruturas de Dados', 4, 'Livro: Introduction to Algorithms, CLRS', 2),
-('EACH0132', 'Marketing Digital', 4, 'Artigos e cases de mercado', 2),
-('EACH0121', 'Gestão de Políticas Públicas', 4, 'Textos e legislação específica', 2);
+INSERT INTO Disciplina (Sigla, Nome_Disciplina, Quantidade_AulasSemanais, Material_Didatico, ID_Unidade, NomeBloco) VALUES
+('SCC0240', 'Bases de Dados', 4, 'Livro: Sistemas de Banco de Dados, Elmasri & Navathe', 1, 'ICMC'),
+('SCC0241', 'Engenharia de Software I', 4, 'Livro: Engenharia de Software, Sommerville', 1, 'ICMC'), 
+('SME0340', 'Cálculo I', 6, 'Livro: Cálculo, Stewart', 1, 'ICMC'),
+('EACH0111', 'Algoritmos e Estruturas de Dados', 4, 'Livro: Introduction to Algorithms, CLRS', 2, 'EACH'),
+('EACH0132', 'Marketing Digital', 4, 'Artigos e cases de mercado', 2, 'EACH'),
+('EACH0121', 'Gestão de Políticas Públicas', 4, 'Textos e legislação específica', 2, 'EACH');
 
 -- Associando Disciplinas aos Cursos
 INSERT INTO DiscipCompoeCurso (ID_Curso, Sigla, Semestre) VALUES
@@ -132,7 +142,7 @@ INSERT INTO Oferecimento (Sigla_Disciplina, Periodo, Ano, NomeProfessor, Sobreno
 ('EACH0132', 1, 2025, 'Fernando', 'Fernandes', '11982000015', 75, 'B5-101'); 
 
 -- Inserindo Matrículas de Alunos em Disciplinas
-INSERT INTO RealizarMatricula (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf, DataMatricula, Status) VALUES
+INSERT INTO RealizarMatricula (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor, DataMatricula, Status) VALUES
 ('João', 'Silva', '16991000001', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', '2025-02-15', 'Ativa'),
 ('Maria', 'Oliveira', '16991000002', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', '2025-02-15', 'Ativa'),
 ('Pedro', 'Santos', '16991000003', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', '2025-02-16', 'Ativa'),
@@ -150,7 +160,7 @@ INSERT INTO RealizarMatricula (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_D
 ('Bruno', 'Nunes', '11981000019', 'EACH0111', 1, 2025, 'Eduardo', 'Pinto', '11982000013', '2025-02-19', 'Concluída');
 
 -- Inserindo Notas (Exemplo de atributo multivalorado em tabela separada)
-INSERT INTO Matricula_Nota (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf, Descricao_Avaliacao, Nota) VALUES
+INSERT INTO Matricula_Nota (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor, Descricao_Avaliacao, Nota) VALUES
 ('Lucas', 'Pereira', '16991000005', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 'Nota Final', 8.5),
 ('Beatriz', 'Ferreira', '16991000006', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 'Nota Final', 4.0),
 ('Maria', 'Oliveira', '16991000002', 'SME0340', 1, 2025, 'Ricardo', 'Tavares', '16992000008', 'Nota Final', 9.0),
@@ -168,12 +178,6 @@ UPDATE Curso SET SalaPadrao = 'B5-101' WHERE ID_Curso = 'BCC';
 UPDATE Curso SET SalaPadrao = 'PRD-201' WHERE ID_Curso = 'SI';
 UPDATE Curso SET SalaPadrao = 'PRD-202' WHERE ID_Curso = 'MKT';
 UPDATE Curso SET SalaPadrao = 'B5-102' WHERE ID_Curso = 'Estat';
-
--- Inserindo Curso_PreRequisito
-INSERT INTO Curso_PreRequisito (ID_Curso, PreRequisito_Sigla_Disciplina) VALUES
-('BCC', 'SME0340'),  -- Cálculo I como pré-requisito para Ciência da Computação
-('SI', 'SCC0240'),   -- Bases de Dados para Sistemas de Informação
-('MKT', 'EACH0132'); -- Marketing Digital para Marketing
 
 -- Inserindo Curso_Infraestrutura
 INSERT INTO Curso_Infraestrutura (ID_Curso, Necessidade_Infraestrutura) VALUES
@@ -195,18 +199,19 @@ INSERT INTO RegrasGeral (ID_Curso, Tipo, Descricao) VALUES
 ('Estat', 'Avaliação', 'Nota mínima 6.5 para aprovação.');
 
 -- Inserindo Mensagens
-INSERT INTO Mensagem (Emissor, Destinatario, Conteudo, NomeAutor, SobrenomeAutor, TelefoneAutor) VALUES
-('joao.silva@email.com', 'carlos.rodrigues@email.com', 'Professor, gostaria de esclarecer uma dúvida sobre a matéria.', 'João', 'Silva', '16991000001'),
-('maria.oliveira@email.com', 'jose.teixeira@email.com', 'Solicito revisão da nota da última avaliação.', 'Maria', 'Oliveira', '16991000002'),
-('eduardo.pinto@email.com', 'fernanda.fogaca@email.com', 'Reunião marcada para amanhã às 10h.', 'Eduardo', 'Pinto', '11982000013'),
-('fernando.fernandes@email.com', 'patricia.wolff@email.com', 'Precisamos discutir o projeto de marketing digital.', 'Fernando', 'Fernandes', '11982000015');
+INSERT INTO Mensagem (Timestamp, Conteudo, NomeAutor, SobrenomeAutor, TelefoneAutor) VALUES
+(1, '2025-02-14 10:23:00', 'Professor, gostaria de esclarecer uma dúvida sobre a matéria.', 'João', 'Silva', '16991000001'),
+(2, '2025-02-14 14:05:00', 'Solicito revisão da nota da última avaliação.', 'Maria', 'Oliveira', '16991000002'),
+(3, '2025-02-14 16:40:00', 'Reunião marcada para amanhã às 10h.', 'Eduardo', 'Pinto', '11982000013'),
+(4, '2025-02-14 17:15:00', 'Precisamos discutir o projeto de marketing digital.', 'Fernando', 'Fernandes', '11982000015');
 
 -- Inserindo RecebeMsg (destinatários das mensagens)
 INSERT INTO RecebeMsg (ID_Mensagem, NomeDestinatario, SobrenomeDestinatario, TelefoneDestinatario) VALUES
 (1, 'Carlos', 'Rodrigues', '16992000001'),
 (2, 'José', 'Teixeira', '16992000002'),
 (3, 'Fernanda', 'Fogaça', '16992000005'),
-(4, 'Patrícia', 'Wolff', '11982000014');
+(4, 'Patrícia', 'Wolff', '11982000014'),
+(4, 'Carlos', 'Rodrigues', '16992000001');
 
 -- Inserindo CriterioAprovacao
 INSERT INTO CriterioAprovacao (ID_Curso, FrequenciaMinima, NotaMinima) VALUES
@@ -214,3 +219,22 @@ INSERT INTO CriterioAprovacao (ID_Curso, FrequenciaMinima, NotaMinima) VALUES
 ('SI', 75.00, 6.00),
 ('MKT', 80.00, 7.00),
 ('Estat', 75.00, 6.50);
+
+-- Inserindo dados na tabela CursoRequisitoDisciplina
+INSERT INTO CursoRequisitoDisciplina (ID_CursoAlvo, SiglaRequisito) VALUES
+('BCC', 'SCC0240'), -- BCC requer Bases de Dados
+('SI', 'SME0340'),  -- SI requer Cálculo I
+('MKT', 'EACH0111'); -- Marketing requer Algoritmos e Estruturas de Dados
+
+-- Inserindo dados na tabela CursoRequisitoCurso
+INSERT INTO CursoRequisitoCurso (ID_CursoAlvo, ID_CursoRequisito) VALUES
+('SI', 'BCC'),   -- Sistemas de Informação tem Bacharelado em Ciência da Computação como pré-requisito
+('Estat', 'SI'); -- Estatística tem Sistemas de Informação como pré-requisito
+
+-- Inserindo dados na tabela Matricula_Bolsa
+INSERT INTO Matricula_Bolsa (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor, TipoBolsa) VALUES
+('João', 'Silva', '16991000001', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 'Bolsa Mérito Acadêmico'),
+('Maria', 'Oliveira', '16991000002', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 'Bolsa Assistência Estudantil'),
+('Guilherme', 'Martins', '11981000011', 'EACH0111', 1, 2025, 'Eduardo', 'Pinto', '11982000013', 'Bolsa IC'),
+('Rafael', 'Almeida', '11981000013', 'EACH0132', 1, 2025, 'Fernando', 'Fernandes', '11982000015', 'Bolsa FAPESP'),
+('Lucas', 'Pereira', '16991000005', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 'Bolsa Mérito Acadêmico');

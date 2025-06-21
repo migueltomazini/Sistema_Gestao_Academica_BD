@@ -1,7 +1,7 @@
 -- Arquivo: 4.criacao_tabelas.sql
 -- Descrição: Script para criar toda a estrutura do banco de dados (tabelas e restrições).
 
--- Sem normalização ainda
+-- Já normalizadas
 
 -- Apaga as tabelas existentes para garantir um ambiente limpo.
 DROP TABLE IF EXISTS Matricula_Nota CASCADE;
@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS RealizarMatricula CASCADE;
 DROP TABLE IF EXISTS Oferecimento CASCADE;
 DROP TABLE IF EXISTS DiscipCompoeCurso CASCADE;
 DROP TABLE IF EXISTS Professor_AreaEspecializacao CASCADE;
-DROP TABLE IF EXISTS Curso_PreRequisito CASCADE;
 DROP TABLE IF EXISTS Curso_Infraestrutura CASCADE;
 DROP TABLE IF EXISTS RegrasGeral CASCADE;
 DROP TABLE IF EXISTS Curso CASCADE;
@@ -25,14 +24,24 @@ DROP TABLE IF EXISTS Usuario CASCADE;
 DROP TABLE IF EXISTS Unidade_Escola CASCADE;
 DROP TABLE IF EXISTS Sala CASCADE;
 DROP TABLE IF EXISTS CriterioAprovacao CASCADE;
+DROP TABLE IF EXISTS Bloco CASCADE; 
+DROP TABLE IF EXISTS CursoRequisitoDisciplina CASCADE; 
+DROP TABLE IF EXISTS CursoRequisitoCurso CASCADE; 
+DROP TABLE IF EXISTS Matricula_Bolsa CASCADE; 
 
 -- Tabelas que não possuem chaves estrangeiras (ou que referenciam tabelas já criadas)
 CREATE TABLE Unidade_Escola (
     ID_Unidade SERIAL PRIMARY KEY,
     Cidade VARCHAR(100) NOT NULL,
     Estado VARCHAR(2) NOT NULL,
-    Pais VARCHAR(50) NOT NULL,
-    Predio_Bloco VARCHAR(100)
+    Pais VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Bloco (
+    ID_Unidade INTEGER NOT NULL,
+    NomeBloco VARCHAR(100) NOT NULL,
+    PRIMARY KEY (ID_Unidade, NomeBloco),
+    FOREIGN KEY (ID_Unidade) REFERENCES Unidade_Escola(ID_Unidade) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Usuario (
@@ -48,6 +57,7 @@ CREATE TABLE Usuario (
     Email VARCHAR(255) UNIQUE NOT NULL,
     Senha VARCHAR(255) NOT NULL,
     ID_Unidade INTEGER NOT NULL,
+    NomeBloco VARCHAR(100),   -- Pode ser NULL pois o usuário não necessariamente deve estar associado a um bloco, somente a uma unidade
     PRIMARY KEY (NomeUsuario, SobrenomeUsuario, Telefone),
     FOREIGN KEY (ID_Unidade) REFERENCES Unidade_Escola(ID_Unidade) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -82,12 +92,10 @@ CREATE TABLE Funcionario (
 CREATE TABLE Departamento (
     Codigo VARCHAR(10) PRIMARY KEY,
     Nome VARCHAR(255) UNIQUE NOT NULL,
-    ProfessorChefe_Nome VARCHAR(100),
-    ProfessorChefe_Sobrenome VARCHAR(100),
-    ProfessorChefe_Telefone VARCHAR(15),
-    -- Um departamento DEVE ter um chefe, mas um professor pode ser deletado.
-    -- ON DELETE SET NULL permite que o departamento continue existindo temporariamente sem chefe.
-    FOREIGN KEY (ProfessorChefe_Nome, ProfessorChefe_Sobrenome, ProfessorChefe_Telefone) REFERENCES Professor(NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE SET NULL ON UPDATE CASCADE
+    ProfessorChefe_Nome VARCHAR(100) NOT NULL,
+    ProfessorChefe_Sobrenome VARCHAR(100) NOT NULL,
+    ProfessorChefe_Telefone VARCHAR(15) NOT NULL,
+    FOREIGN KEY (ProfessorChefe_Nome, ProfessorChefe_Sobrenome, ProfessorChefe_Telefone) REFERENCES Professor(NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE Disciplina (
@@ -96,6 +104,7 @@ CREATE TABLE Disciplina (
     Quantidade_AulasSemanais INTEGER NOT NULL CHECK (Quantidade_AulasSemanais > 0),
     Material_Didatico TEXT,
     ID_Unidade INTEGER NOT NULL,
+    NomeBloco VARCHAR(100),
     FOREIGN KEY (ID_Unidade) REFERENCES Unidade_Escola(ID_Unidade) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -115,6 +124,7 @@ CREATE TABLE Curso (
     Nivel_de_Ensino VARCHAR(50) NOT NULL,
     Departamento_Codigo VARCHAR(10) NOT NULL,
     ID_Unidade INTEGER NOT NULL,
+    NomeBloco VARCHAR(100),
     FOREIGN KEY (SalaPadrao) REFERENCES Sala(Codigo) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (Departamento_Codigo) REFERENCES Departamento(Codigo) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (ID_Unidade) REFERENCES Unidade_Escola(ID_Unidade) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -152,7 +162,7 @@ CREATE TABLE Oferecimento (
     PRIMARY KEY (Sigla_Disciplina, Periodo, Ano, NomeProfessor, SobrenomeProfessor, TelefoneProfessor),
     FOREIGN KEY (Sigla_Disciplina) REFERENCES Disciplina(Sigla) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (NomeProfessor, SobrenomeProfessor, TelefoneProfessor) REFERENCES Professor(NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (Sala_Codigo) REFERENCES Sala(Codigo) ON DELETE SET NULL ON UPDATE CASCADE 
+    FOREIGN KEY (Sala_Codigo) REFERENCES Sala(Codigo) ON DELETE RESTRICT ON UPDATE CASCADE 
 );
 
 CREATE TABLE RealizarMatricula (
@@ -162,16 +172,14 @@ CREATE TABLE RealizarMatricula (
     Sigla_Disciplina VARCHAR(10) NOT NULL,
     Periodo_Oferecimento INTEGER NOT NULL,
     Ano_Oferecimento INTEGER NOT NULL,
-    NomeProf VARCHAR(100) NOT NULL,
-    SobrenomeProf VARCHAR(100) NOT NULL,
-    TelefoneProf VARCHAR(15) NOT NULL,
+    NomeProfessor VARCHAR(100) NOT NULL,
+    SobrenomeProfessor VARCHAR(100) NOT NULL,
+    TelefoneProfessor VARCHAR(15) NOT NULL,
     DataMatricula DATE NOT NULL,
     Status VARCHAR(50) NOT NULL,
-    BolsasDeEstudo VARCHAR(100),
-    Descontos VARCHAR(100),
-    PRIMARY KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf),
+    PRIMARY KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor),
     FOREIGN KEY (NomeAluno, SobrenomeAluno, TelefoneAluno) REFERENCES Aluno(NomeAluno, SobrenomeAluno, TelefoneAluno) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf) REFERENCES Oferecimento(Sigla_Disciplina, Periodo, Ano, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) REFERENCES Oferecimento(Sigla_Disciplina, Periodo, Ano, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Avaliacao (
@@ -182,16 +190,16 @@ CREATE TABLE Avaliacao (
     Sigla_Disciplina VARCHAR(10) NOT NULL,
     Periodo_Oferecimento INTEGER NOT NULL,
     Ano_Oferecimento INTEGER NOT NULL,
-    NomeProf VARCHAR(100) NOT NULL,
-    SobrenomeProf VARCHAR(100) NOT NULL,
-    TelefoneProf VARCHAR(15) NOT NULL,
+    NomeProfessor VARCHAR(100) NOT NULL,
+    SobrenomeProfessor VARCHAR(100) NOT NULL,
+    TelefoneProfessor VARCHAR(15) NOT NULL,
     Comentario TEXT,
     Class_Didatica INTEGER CHECK (Class_Didatica BETWEEN 1 AND 5),
     Class_Material INTEGER CHECK (Class_Material BETWEEN 1 AND 5),
     Class_Relevancia INTEGER CHECK (Class_Relevancia BETWEEN 1 AND 5),
     Class_Infra INTEGER CHECK (Class_Infra BETWEEN 1 AND 5),
-    PRIMARY KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf),
-    FOREIGN KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf) REFERENCES RealizarMatricula(NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf) ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor),
+    FOREIGN KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) REFERENCES RealizarMatricula(NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -203,22 +211,45 @@ CREATE TABLE Matricula_Nota (
     Sigla_Disciplina VARCHAR(10) NOT NULL,
     Periodo_Oferecimento INTEGER NOT NULL,
     Ano_Oferecimento INTEGER NOT NULL,
-    NomeProf VARCHAR(100) NOT NULL,
-    SobrenomeProf VARCHAR(100) NOT NULL,
-    TelefoneProf VARCHAR(15) NOT NULL,
+    NomeProfessor VARCHAR(100) NOT NULL,
+    SobrenomeProfessor VARCHAR(100) NOT NULL,
+    TelefoneProfessor VARCHAR(15) NOT NULL,
     Descricao_Avaliacao VARCHAR(100) NOT NULL, -- Ex: "P1", "Trabalho Final", "Nota Final"
     Nota NUMERIC(4, 2) NOT NULL,
-    PRIMARY KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf, Descricao_Avaliacao),
-    FOREIGN KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf) REFERENCES RealizarMatricula(NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProf, SobrenomeProf, TelefoneProf) ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor, Descricao_Avaliacao),
+    FOREIGN KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) REFERENCES RealizarMatricula(NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Demais tabelas para atributos multivalorados, conforme o modelo.
-CREATE TABLE Curso_PreRequisito (
-    ID_Curso VARCHAR(10) NOT NULL,
-    PreRequisito_Sigla_Disciplina VARCHAR(10) NOT NULL,
-    PRIMARY KEY (ID_Curso, PreRequisito_Sigla_Disciplina),
-    FOREIGN KEY (ID_Curso) REFERENCES Curso(ID_Curso) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (PreRequisito_Sigla_Disciplina) REFERENCES Disciplina(Sigla) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE CursoRequisitoDisciplina (
+    ID_CursoAlvo VARCHAR(10) NOT NULL,
+    SiglaRequisito VARCHAR(10) NOT NULL,
+    PRIMARY KEY (ID_CursoAlvo, SiglaRequisito),
+    FOREIGN KEY (ID_CursoAlvo) REFERENCES Curso(ID_Curso) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (SiglaRequisito) REFERENCES Disciplina(Sigla) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE CursoRequisitoCurso (
+    ID_CursoAlvo VARCHAR(10) NOT NULL,
+    ID_CursoRequisito VARCHAR(10) NOT NULL,
+    PRIMARY KEY (ID_CursoAlvo, ID_CursoRequisito),
+    FOREIGN KEY (ID_CursoAlvo) REFERENCES Curso(ID_Curso) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ID_CursoRequisito) REFERENCES Curso(ID_Curso) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Matricula_Bolsa (
+    NomeAluno VARCHAR(100) NOT NULL,
+    SobrenomeAluno VARCHAR(100) NOT NULL,
+    TelefoneAluno VARCHAR(15) NOT NULL,
+    Sigla_Disciplina VARCHAR(10) NOT NULL,
+    Periodo_Oferecimento INTEGER NOT NULL,
+    Ano_Oferecimento INTEGER NOT NULL,
+    NomeProfessor VARCHAR(100) NOT NULL,
+    SobrenomeProfessor VARCHAR(100) NOT NULL,
+    TelefoneProfessor VARCHAR(15) NOT NULL,
+    TipoBolsa VARCHAR(100) NOT NULL,
+    PRIMARY KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor, TipoBolsa),
+    FOREIGN KEY (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) REFERENCES RealizarMatricula(NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Curso_Infraestrutura (
@@ -240,8 +271,6 @@ CREATE TABLE RegrasGeral (
 CREATE TABLE Mensagem (
     ID_Mensagem SERIAL PRIMARY KEY,
     Timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    Emissor VARCHAR(255),
-    Destinatario VARCHAR(255),
     Conteudo TEXT NOT NULL,
     NomeAutor VARCHAR(100) NOT NULL,
     SobrenomeAutor VARCHAR(100) NOT NULL,
