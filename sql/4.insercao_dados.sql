@@ -133,6 +133,13 @@ INSERT INTO DiscipCompoeCurso (ID_Curso, Sigla, Semestre) VALUES
 ('SI', 'SCC0240', 4),
 ('MKT', 'EACH0132', 3);
 
+-- Inserindo Salas
+INSERT INTO Sala (Codigo, CapacidadeMaxSala) VALUES
+('B5-101', 60),
+('B5-102', 50),
+('PRD-201', 70),
+('PRD-202', 80);
+
 -- Inserindo Ofertas de Disciplinas (Turmas) para o período letivo de 2025/1
 INSERT INTO Oferecimento (Sigla_Disciplina, Periodo, Ano, NomeProfessor, SobrenomeProfessor, TelefoneProfessor, CapacidadeMaxTurma, Sala_Codigo) VALUES
 ('SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 60, 'B5-101'), 
@@ -166,13 +173,6 @@ INSERT INTO Matricula_Nota (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disc
 ('Maria', 'Oliveira', '16991000002', 'SME0340', 1, 2025, 'Ricardo', 'Tavares', '16992000008', 'Nota Final', 9.0),
 ('Bruno', 'Nunes', '11981000019', 'EACH0111', 1, 2025, 'Eduardo', 'Pinto', '11982000013', 'Nota Final', 9.5);
 
--- Inserindo Salas
-INSERT INTO Sala (Codigo, CapacidadeMaxSala) VALUES
-('B5-101', 60),
-('B5-102', 50),
-('PRD-201', 70),
-('PRD-202', 80);
-
 -- Atualizando Cursos com SalaPadrao
 UPDATE Curso SET SalaPadrao = 'B5-101' WHERE ID_Curso = 'BCC';
 UPDATE Curso SET SalaPadrao = 'PRD-201' WHERE ID_Curso = 'SI';
@@ -199,7 +199,7 @@ INSERT INTO RegrasGeral (ID_Curso, Tipo, Descricao) VALUES
 ('Estat', 'Avaliação', 'Nota mínima 6.5 para aprovação.');
 
 -- Inserindo Mensagens
-INSERT INTO Mensagem (Timestamp, Conteudo, NomeAutor, SobrenomeAutor, TelefoneAutor) VALUES
+INSERT INTO Mensagem (ID_Mensagem, Timestamp, Conteudo, NomeAutor, SobrenomeAutor, TelefoneAutor) VALUES
 (1, '2025-02-14 10:23:00', 'Professor, gostaria de esclarecer uma dúvida sobre a matéria.', 'João', 'Silva', '16991000001'),
 (2, '2025-02-14 14:05:00', 'Solicito revisão da nota da última avaliação.', 'Maria', 'Oliveira', '16991000002'),
 (3, '2025-02-14 16:40:00', 'Reunião marcada para amanhã às 10h.', 'Eduardo', 'Pinto', '11982000013'),
