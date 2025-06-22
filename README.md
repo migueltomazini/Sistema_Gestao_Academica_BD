@@ -20,8 +20,8 @@ O objetivo do projeto é desenvolver um banco de dados completo para um sistema 
 1. **Clone este repositório:**
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/migueltomazini/Sistema_Gestao_Academica_BD.git
+cd Sistema_Gestao_Academica_BD/sql
 ```
 
 Crie o banco de dados no PostgreSQL:
