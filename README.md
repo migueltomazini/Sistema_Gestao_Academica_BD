@@ -14,3 +14,40 @@ O objetivo do projeto é desenvolver um banco de dados completo para um sistema 
 | Isabela Beatriz Sousa Nunes Farias  | 13823833 |
 | Miguel Rodrigues Tomazini           | 14599300 |
 | Victor Moreli dos Santos            | 14610514 |
+
+### 🚀 Passo a Passo
+
+1. **Clone este repositório:**
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+```
+
+Crie o banco de dados no PostgreSQL:
+
+```bash
+sudo -u postgres psql
+
+CREATE DATABASE gestao_academica;
+\q
+```
+
+```bash
+Execute os scripts SQL na ordem correta:
+
+# 1. Criação das tabelas
+sudo -u postgres psql -d gestao_academica -f 4.criacao_tabelas.sql
+
+# 2. Inserção de dados
+sudo -u postgres psql -d gestao_academica -f 4.insercao_dados.sql
+
+# 3. Criação das visões (Exercício 8)
+sudo -u postgres psql -d gestao_academica -f 8.visoes.sql
+
+# 4. Criação dos índices (Exercício 7)
+sudo -u postgres psql -d gestao_academica -f 7.indices.sql
+
+# 5. Execução das consultas (Exercício 6)
+sudo -u postgres psql -d gestao_academica -a -f 6.consultas.sql
+```
