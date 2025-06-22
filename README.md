@@ -15,7 +15,7 @@ O objetivo do projeto é desenvolver um banco de dados completo para um sistema 
 | Miguel Rodrigues Tomazini           | 14599300 |
 | Victor Moreli dos Santos            | 14610514 |
 
-### 🚀 Passo a Passo
+### Como rodar o projeto
 
 1. **Clone este repositório:**
 
@@ -33,9 +33,9 @@ CREATE DATABASE gestao_academica;
 \q
 ```
 
-```bash
 Execute os scripts SQL na ordem correta:
 
+```bash
 # 1. Criação das tabelas
 sudo -u postgres psql -d gestao_academica -f 4.criacao_tabelas.sql
 
