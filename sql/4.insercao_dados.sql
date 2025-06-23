@@ -166,6 +166,34 @@ INSERT INTO RealizarMatricula (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_D
 ('Sofia', 'Lopes', '11981000014', 'EACH0132', 1, 2025, 'Fernando', 'Fernandes', '11982000015', '2025-02-19', 'Ativa'),
 ('Bruno', 'Nunes', '11981000019', 'EACH0111', 1, 2025, 'Eduardo', 'Pinto', '11982000013', '2025-02-19', 'Concluída');
 
+-- Inserindo avaliações de alunos
+INSERT INTO Avaliacao (
+    NomeAluno, SobrenomeAluno, TelefoneAluno,
+    Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento,
+    NomeProfessor, SobrenomeProfessor, TelefoneProfessor,
+    Comentario, Class_Didatica, Class_Material, Class_Relevancia, Class_Infra
+) VALUES
+-- Avaliação de João na disciplina SCC0240 com Carlos Rodrigues
+('João', 'Silva', '16991000001', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001',
+ 'Aulas bem explicadas, conteúdo interessante.', 5, 4, 5, 4),
+
+-- Avaliação de Maria na disciplina SME0340 com Ricardo Tavares
+('Maria', 'Oliveira', '16991000002', 'SME0340', 1, 2025, 'Ricardo', 'Tavares', '16992000008',
+ 'Bom uso de materiais complementares, mas faltou organização.', 4, 5, 3, 4),
+
+-- Avaliação de Lucas na disciplina SCC0240 com Carlos Rodrigues
+('Lucas', 'Pereira', '16991000005', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001',
+ 'Professor muito didático, recomendo.', 5, 5, 5, 5),
+
+-- Avaliação de Guilherme na disciplina EACH0111 com Eduardo Pinto
+('Guilherme', 'Martins', '11981000011', 'EACH0111', 1, 2025, 'Eduardo', 'Pinto', '11982000013',
+ 'Infraestrutura da sala poderia melhorar.', 4, 4, 4, 2),
+
+-- Avaliação de Bruno na disciplina EACH0111 com Eduardo Pinto
+('Bruno', 'Nunes', '11981000019', 'EACH0111', 1, 2025, 'Eduardo', 'Pinto', '11982000013',
+ 'Gostei da abordagem prática.', 5, 5, 4, 4);
+
+
 -- Inserindo Notas (Exemplo de atributo multivalorado em tabela separada)
 INSERT INTO Matricula_Nota (NomeAluno, SobrenomeAluno, TelefoneAluno, Sigla_Disciplina, Periodo_Oferecimento, Ano_Oferecimento, NomeProfessor, SobrenomeProfessor, TelefoneProfessor, Descricao_Avaliacao, Nota) VALUES
 ('Lucas', 'Pereira', '16991000005', 'SCC0240', 1, 2025, 'Carlos', 'Rodrigues', '16992000001', 'Nota Final', 8.5),
