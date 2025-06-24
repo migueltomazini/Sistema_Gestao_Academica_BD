@@ -1,0 +1,44 @@
+DROP VIEW
+DROP VIEW
+DROP VIEW
+DROP VIEW
+CREATE VIEW
+ sigla_disciplina | periodo | ano  |      docente       | capacidademaxturma | sala_codigo 
+------------------+---------+------+--------------------+--------------------+-------------
+ SCC0240          |       1 | 2025 | Carlos Rodrigues   |                 60 | B5-101
+ SCC0241          |       1 | 2025 | José Teixeira      |                 55 | B5-102
+ SME0340          |       1 | 2025 | Ricardo Tavares    |                 90 | PRD-201
+ EACH0111         |       1 | 2025 | Eduardo Pinto      |                 70 | PRD-202
+ EACH0132         |       1 | 2025 | Fernando Fernandes |                 75 | B5-101
+(5 rows)
+
+CREATE VIEW
+ nomealuno | sobrenomealuno | notafinal | sigla_disciplina | periodo | ano  
+-----------+----------------+-----------+------------------+---------+------
+ Lucas     | Pereira        |      8.50 | SCC0240          |       1 | 2025
+ Beatriz   | Ferreira       |      4.00 | SCC0240          |       1 | 2025
+ Maria     | Oliveira       |      9.00 | SME0340          |       1 | 2025
+ Bruno     | Nunes          |      9.50 | EACH0111         |       1 | 2025
+(4 rows)
+
+CREATE VIEW
+ id_mensagem |      timestamp      |                           conteudo                            |     remetente      |             destinatarios             
+-------------+---------------------+---------------------------------------------------------------+--------------------+---------------------------------------
+           3 | 2025-02-14 16:40:00 | Reunião marcada para amanhã às 10h.                           | Eduardo Pinto      | {"Fernanda Fogaça"}
+           4 | 2025-02-14 17:15:00 | Precisamos discutir o projeto de marketing digital.           | Fernando Fernandes | {"Patrícia Wolff","Carlos Rodrigues"}
+           2 | 2025-02-14 14:05:00 | Solicito revisão da nota da última avaliação.                 | Maria Oliveira     | {"José Teixeira"}
+           1 | 2025-02-14 10:23:00 | Professor, gostaria de esclarecer uma dúvida sobre a matéria. | João Silva         | {"Carlos Rodrigues"}
+(4 rows)
+
+CREATE VIEW
+ id_curso |               nomecurso               | sigladisciplina |         nome_disciplina          
+----------+---------------------------------------+-----------------+----------------------------------
+ BCC      | Bacharelado em Ciência da Computação  | SCC0240         | Bases de Dados
+ BCC      | Bacharelado em Ciência da Computação  | SCC0241         | Engenharia de Software I
+ BCC      | Bacharelado em Ciência da Computação  | SME0340         | Cálculo I
+ Estat    | Bacharelado em Estatística            | SME0340         | Cálculo I
+ SI       | Bacharelado em Sistemas de Informação | EACH0111        | Algoritmos e Estruturas de Dados
+ SI       | Bacharelado em Sistemas de Informação | SCC0240         | Bases de Dados
+ MKT      | Bacharelado em Marketing              | EACH0132        | Marketing Digital
+(7 rows)
+

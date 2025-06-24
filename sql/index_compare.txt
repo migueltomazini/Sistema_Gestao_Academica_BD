@@ -1,57 +1,81 @@
 CREATE INDEX
 CREATE INDEX
 CREATE INDEX
+CREATE INDEX
                                                                        QUERY PLAN                                                                       
 --------------------------------------------------------------------------------------------------------------------------------------------------------
- Index Scan using idx_oferecimento_capacidade_turma on oferecimento  (cost=0.29..71.71 rows=1930 width=62) (actual time=0.053..0.920 rows=2081 loops=1)
+ Index Scan using idx_oferecimento_capacidade_turma on oferecimento  (cost=0.29..72.13 rows=1983 width=62) (actual time=0.020..0.301 rows=2009 loops=1)
    Index Cond: (capacidademaxturma = 50)
- Planning Time: 1.190 ms
- Execution Time: 1.200 ms
+ Planning Time: 0.340 ms
+ Execution Time: 0.393 ms
 (4 rows)
 
-                                                                   QUERY PLAN                                                                    
--------------------------------------------------------------------------------------------------------------------------------------------------
- Index Scan using idx_realizarmatricula_status on realizarmatricula  (cost=0.29..4.31 rows=1 width=91) (actual time=0.061..0.065 rows=3 loops=1)
-   Index Cond: ((status)::text = 'Concluída'::text)
- Planning Time: 0.661 ms
- Execution Time: 0.104 ms
-(4 rows)
+                                                              QUERY PLAN                                                               
+---------------------------------------------------------------------------------------------------------------------------------------
+ Bitmap Heap Scan on realizarmatricula  (cost=8.17..1070.02 rows=500 width=1136) (actual time=0.019..0.020 rows=3 loops=1)
+   Recheck Cond: ((status)::text = 'Concluída'::text)
+   Heap Blocks: exact=1
+   ->  Bitmap Index Scan on idx_realizarmatricula_status  (cost=0.00..8.04 rows=500 width=0) (actual time=0.017..0.017 rows=3 loops=1)
+         Index Cond: ((status)::text = 'Concluída'::text)
+ Planning Time: 0.196 ms
+ Execution Time: 0.041 ms
+(7 rows)
 
                                                                  QUERY PLAN                                                                 
 --------------------------------------------------------------------------------------------------------------------------------------------
- Index Scan using idx_oferecimento_sala_codigo on oferecimento  (cost=0.29..8.39 rows=5 width=62) (actual time=0.075..0.078 rows=2 loops=1)
+ Index Scan using idx_oferecimento_sala_codigo on oferecimento  (cost=0.29..8.35 rows=3 width=62) (actual time=0.022..0.023 rows=2 loops=1)
    Index Cond: ((sala_codigo)::text = 'B5-101'::text)
- Planning Time: 0.142 ms
- Execution Time: 0.100 ms
+ Planning Time: 0.052 ms
+ Execution Time: 0.031 ms
 (4 rows)
 
+                                                                  QUERY PLAN                                                                  
+----------------------------------------------------------------------------------------------------------------------------------------------
+ Bitmap Heap Scan on realizarmatricula  (cost=8.17..1070.02 rows=500 width=1136) (actual time=0.016..0.017 rows=0 loops=1)
+   Recheck Cond: (datamatricula = '2023-01-15'::date)
+   ->  Bitmap Index Scan on idx_realizarmatricula_datamatricula  (cost=0.00..8.04 rows=500 width=0) (actual time=0.015..0.016 rows=0 loops=1)
+         Index Cond: (datamatricula = '2023-01-15'::date)
+ Planning Time: 0.052 ms
+ Execution Time: 0.027 ms
+(6 rows)
+
+DROP INDEX
 DROP INDEX
 DROP INDEX
 DROP INDEX
                                                     QUERY PLAN                                                    
 ------------------------------------------------------------------------------------------------------------------
- Seq Scan on oferecimento  (cost=0.00..2412.06 rows=1930 width=62) (actual time=11.395..22.692 rows=2081 loops=1)
+ Seq Scan on oferecimento  (cost=0.00..2412.06 rows=1983 width=62) (actual time=12.679..28.138 rows=2009 loops=1)
    Filter: (capacidademaxturma = 50)
-   Rows Removed by Filter: 97924
- Planning Time: 0.162 ms
- Execution Time: 22.887 ms
+   Rows Removed by Filter: 97996
+ Planning Time: 0.169 ms
+ Execution Time: 28.551 ms
 (5 rows)
 
-                                                   QUERY PLAN                                                   
-----------------------------------------------------------------------------------------------------------------
- Seq Scan on realizarmatricula  (cost=0.00..2847.19 rows=1 width=91) (actual time=0.008..14.195 rows=3 loops=1)
+                                                     QUERY PLAN                                                     
+--------------------------------------------------------------------------------------------------------------------
+ Seq Scan on realizarmatricula  (cost=0.00..2847.19 rows=500 width=1136) (actual time=0.014..25.341 rows=3 loops=1)
    Filter: ((status)::text = 'Concluída'::text)
    Rows Removed by Filter: 100012
- Planning Time: 0.091 ms
- Execution Time: 14.208 ms
+ Planning Time: 0.138 ms
+ Execution Time: 25.358 ms
 (5 rows)
 
-                                                QUERY PLAN                                                 
------------------------------------------------------------------------------------------------------------
- Seq Scan on oferecimento  (cost=0.00..2412.06 rows=5 width=62) (actual time=0.005..10.385 rows=2 loops=1)
+                                                QUERY PLAN                                                
+----------------------------------------------------------------------------------------------------------
+ Seq Scan on oferecimento  (cost=0.00..2412.06 rows=3 width=62) (actual time=0.005..9.640 rows=2 loops=1)
    Filter: ((sala_codigo)::text = 'B5-101'::text)
    Rows Removed by Filter: 100003
- Planning Time: 0.035 ms
- Execution Time: 10.394 ms
+ Planning Time: 0.042 ms
+ Execution Time: 9.651 ms
+(5 rows)
+
+                                                     QUERY PLAN                                                      
+---------------------------------------------------------------------------------------------------------------------
+ Seq Scan on realizarmatricula  (cost=0.00..2847.19 rows=500 width=1136) (actual time=10.697..10.697 rows=0 loops=1)
+   Filter: (datamatricula = '2023-01-15'::date)
+   Rows Removed by Filter: 100015
+ Planning Time: 0.040 ms
+ Execution Time: 10.708 ms
 (5 rows)
 

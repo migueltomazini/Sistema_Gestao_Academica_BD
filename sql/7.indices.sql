@@ -1,8 +1,6 @@
--- Arquivo: 6.analise_impacto_indices_v2.sql
--- Descrição: Script para demonstrar o impacto dos índices no desempenho das consultas,
---            focando em cenários que forçam Seq Scan quando os índices são removidos.
--- Este script assume que o script '4.criacao_tabelas.sql' e '5.insercao_dados_artificiais.sql'
--- já foram executados e que os índices do script anterior foram removidos.
+-- Arquivo: 7.indices.sql
+-- Descrição: Script para demonstrar o impacto dos índices no desempenho das consultas.
+-- Este script assume que o script '4.criacao_tabelas.sql' e '7.carga_adicional.sql' já foram executados.
 
 -- *************************************************************************
 -- PARTE 1: Criação dos Índices Novos para Teste
@@ -14,8 +12,11 @@ CREATE INDEX idx_oferecimento_capacidade_turma ON Oferecimento (CapacidadeMaxTur
 -- Índice para RealizarMatricula no status
 CREATE INDEX idx_realizarmatricula_status ON RealizarMatricula (Status);
 
--- NOVO ÍNDICE: Índice para Oferecimento no código da sala
+-- Índice para Oferecimento no código da sala
 CREATE INDEX idx_oferecimento_sala_codigo ON Oferecimento (Sala_Codigo);
+
+-- Índice para RealizarMatricula na data da matrícula
+CREATE INDEX idx_realizarmatricula_datamatricula ON RealizarMatricula (DataMatricula);
 
 
 -- *************************************************************************
@@ -34,11 +35,18 @@ SELECT *
 FROM RealizarMatricula
 WHERE Status = 'Concluída';
 
--- NOVO TESTE: Consulta 3: Utilizando idx_oferecimento_sala_codigo
+-- Consulta 3: Utilizando idx_oferecimento_sala_codigo
 EXPLAIN ANALYZE
 SELECT *
 FROM Oferecimento
 WHERE Sala_Codigo = 'B5-101';
+
+-- Consulta 4: Utilizando idx_realizarmatricula_datamatricula
+EXPLAIN ANALYZE
+SELECT *
+FROM RealizarMatricula
+WHERE DataMatricula = '2023-01-15'; -- Ajuste a data conforme os dados existentes
+
 
 -- *************************************************************************
 -- PARTE 3: Exclusão dos Índices
@@ -46,7 +54,8 @@ WHERE Sala_Codigo = 'B5-101';
 
 DROP INDEX idx_oferecimento_capacidade_turma;
 DROP INDEX idx_realizarmatricula_status;
-DROP INDEX idx_oferecimento_sala_codigo; -- Excluindo o novo índice
+DROP INDEX idx_oferecimento_sala_codigo; 
+DROP INDEX idx_realizarmatricula_datamatricula; 
 
 -- *************************************************************************
 -- PARTE 4: Consultas sem Índices (EXPLAIN ANALYZE)
@@ -65,8 +74,14 @@ SELECT *
 FROM RealizarMatricula
 WHERE Status = 'Concluída';
 
--- NOVO TESTE: Consulta 3: Buscando oferecimentos na sala B5-101 (sem índice)...
+-- Consulta 3: Buscando oferecimentos na sala B5-101 (sem índice)...
 EXPLAIN ANALYZE
 SELECT *
 FROM Oferecimento
 WHERE Sala_Codigo = 'B5-101';
+
+-- Consulta 4: Buscando matrículas na data '2023-01-15' (sem índice)...
+EXPLAIN ANALYZE
+SELECT *
+FROM RealizarMatricula
+WHERE DataMatricula = '2023-01-15'; 

@@ -2,17 +2,6 @@
 -- Descrição: Script para popular as tabelas Oferecimento e RealizarMatricula com grande volume de dados.
 -- Este script assume que o script '4.criacao_tabelas.sql' e '4.insercao_dados.sql' já foram executados.
 
--- Desabilita mensagens de feedback para inserções em massa
-SET client_min_messages TO WARNING;
-
--- Desabilita triggers temporariamente para acelerar a inserção de dados.
--- Isso é útil para grandes volumes, mas tenha cuidado em ambientes de produção.
-ALTER TABLE Usuario DISABLE TRIGGER ALL;
-ALTER TABLE Aluno DISABLE TRIGGER ALL;
-ALTER TABLE Professor DISABLE TRIGGER ALL;
-ALTER TABLE Oferecimento DISABLE TRIGGER ALL;
-ALTER TABLE RealizarMatricula DISABLE TRIGGER ALL;
-
 -- *************************************************************************
 -- 1. Geração de Dados Base Adicionais
 --    Vamos adicionar mais professores e alunos para termos mais combinações
