@@ -1,12 +1,50 @@
 -- Arquivo: 4.insercao_dados.sql
 -- Descrição: Script para popular as tabelas do banco de dados com dados realistas.
 
--- Sem normalização ainda
+-- Já normalizado
 
 -- Inserindo 2 Unidades da Escola
 INSERT INTO Unidade_Escola (ID_Unidade, Cidade, Estado, Pais) VALUES
 (1, 'São Carlos', 'SP', 'Brasil'),
-(2, 'São Paulo', 'SP', 'Brasil');
+(2, 'São Paulo', 'SP', 'Brasil'),
+(3, 'Campinas', 'SP', 'Brasil'),
+(4, 'Ribeirão Preto', 'SP', 'Brasil'),
+(5, 'Santos', 'SP', 'Brasil'),
+(6, 'Sorocaba', 'SP', 'Brasil'),
+(7, 'Bauru', 'SP', 'Brasil'),
+(8, 'Marília', 'SP', 'Brasil'),
+(9, 'Presidente Prudente', 'SP', 'Brasil'),
+(10, 'Franca', 'SP', 'Brasil'),
+(11, 'Jundiaí', 'SP', 'Brasil'),
+(12, 'Guarulhos', 'SP', 'Brasil'),
+(13, 'Osasco', 'SP', 'Brasil'),
+(14, 'São José dos Campos', 'SP', 'Brasil'),
+(15, 'Taubaté', 'SP', 'Brasil'),
+(16, 'Mogi das Cruzes', 'SP', 'Brasil'),
+(17, 'Barueri', 'SP', 'Brasil'),
+(18, 'Diadema', 'SP', 'Brasil'),
+(19, 'Carapicuíba', 'SP', 'Brasil'),
+(20, 'Suzano', 'SP', 'Brasil'),
+(21, 'Mauá', 'SP', 'Brasil'),
+(22, 'Santo André', 'SP', 'Brasil'),
+(23, 'São Bernardo do Campo', 'SP', 'Brasil'),
+(24, 'Niterói', 'RJ', 'Brasil'),
+(25, 'Duque de Caxias', 'RJ', 'Brasil'),
+(26, 'Nova Iguaçu', 'RJ', 'Brasil'),
+(27, 'Petrópolis', 'RJ', 'Brasil'),
+(28, 'Campos dos Goytacazes', 'RJ', 'Brasil'),
+(29, 'Belo Horizonte', 'MG', 'Brasil'),
+(30, 'Contagem', 'MG', 'Brasil'),
+(31, 'Uberlândia', 'MG', 'Brasil'),
+(32, 'Juiz de Fora', 'MG', 'Brasil'),
+(33, 'Montes Claros', 'MG', 'Brasil'),
+(34, 'Vitória', 'ES', 'Brasil'),
+(35, 'Serra', 'ES', 'Brasil'),
+(36, 'Vila Velha', 'ES', 'Brasil'),
+(37, 'Curitiba', 'PR', 'Brasil'),
+(38, 'Londrina', 'PR', 'Brasil'),
+(39, 'Maringá', 'PR', 'Brasil'),
+(40, 'Foz do Iguaçu', 'PR', 'Brasil');
 
 INSERT INTO Bloco (ID_Unidade, NomeBloco) VALUES
 (1, 'ICMC'),

@@ -1,0 +1,57 @@
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+                                                                       QUERY PLAN                                                                       
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+ Index Scan using idx_oferecimento_capacidade_turma on oferecimento  (cost=0.29..71.71 rows=1930 width=62) (actual time=0.053..0.920 rows=2081 loops=1)
+   Index Cond: (capacidademaxturma = 50)
+ Planning Time: 1.190 ms
+ Execution Time: 1.200 ms
+(4 rows)
+
+                                                                   QUERY PLAN                                                                    
+-------------------------------------------------------------------------------------------------------------------------------------------------
+ Index Scan using idx_realizarmatricula_status on realizarmatricula  (cost=0.29..4.31 rows=1 width=91) (actual time=0.061..0.065 rows=3 loops=1)
+   Index Cond: ((status)::text = 'Concluída'::text)
+ Planning Time: 0.661 ms
+ Execution Time: 0.104 ms
+(4 rows)
+
+                                                                 QUERY PLAN                                                                 
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Index Scan using idx_oferecimento_sala_codigo on oferecimento  (cost=0.29..8.39 rows=5 width=62) (actual time=0.075..0.078 rows=2 loops=1)
+   Index Cond: ((sala_codigo)::text = 'B5-101'::text)
+ Planning Time: 0.142 ms
+ Execution Time: 0.100 ms
+(4 rows)
+
+DROP INDEX
+DROP INDEX
+DROP INDEX
+                                                    QUERY PLAN                                                    
+------------------------------------------------------------------------------------------------------------------
+ Seq Scan on oferecimento  (cost=0.00..2412.06 rows=1930 width=62) (actual time=11.395..22.692 rows=2081 loops=1)
+   Filter: (capacidademaxturma = 50)
+   Rows Removed by Filter: 97924
+ Planning Time: 0.162 ms
+ Execution Time: 22.887 ms
+(5 rows)
+
+                                                   QUERY PLAN                                                   
+----------------------------------------------------------------------------------------------------------------
+ Seq Scan on realizarmatricula  (cost=0.00..2847.19 rows=1 width=91) (actual time=0.008..14.195 rows=3 loops=1)
+   Filter: ((status)::text = 'Concluída'::text)
+   Rows Removed by Filter: 100012
+ Planning Time: 0.091 ms
+ Execution Time: 14.208 ms
+(5 rows)
+
+                                                QUERY PLAN                                                 
+-----------------------------------------------------------------------------------------------------------
+ Seq Scan on oferecimento  (cost=0.00..2412.06 rows=5 width=62) (actual time=0.005..10.385 rows=2 loops=1)
+   Filter: ((sala_codigo)::text = 'B5-101'::text)
+   Rows Removed by Filter: 100003
+ Planning Time: 0.035 ms
+ Execution Time: 10.394 ms
+(5 rows)
+
